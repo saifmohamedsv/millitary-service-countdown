@@ -7,6 +7,7 @@ export default function Home() {
     redeefDate: new Date(2025, 9, 1),
   })
 
+  if (!timeLeft || timeLeft.startsWith('00')) return
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
       <div className="text-center space-y-8 sm:space-y-12 max-w-screen md:max-w-4xl w-full px-4">
