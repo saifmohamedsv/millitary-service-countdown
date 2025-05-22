@@ -46,7 +46,7 @@ export default function Home() {
 
         {timeLeft && (
           <div className="flex flex-col items-center space-y-2">
-            <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 md:gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4">
               {timeLeft.split(':').map((unit, index) => {
                 const totalMonths = parseInt(timeLeft.split(':')[0])
                 let colorClass = ''
@@ -62,7 +62,10 @@ export default function Home() {
                 }
 
                 return (
-                  <div key={index} className="flex flex-col items-center">
+                  <div
+                    key={index}
+                    className="flex flex-col items-center px-1 sm:px-2"
+                  >
                     <span
                       className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold ${colorClass}`}
                     >
