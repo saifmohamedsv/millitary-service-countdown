@@ -3,7 +3,7 @@ import { useCountDown } from '@/hooks/countdown.hook'
 
 export default function Home() {
   const { timeLeft, redeefMessage } = useCountDown({
-    targetDate: new Date(2026, 1, 20),
+    targetDate: new Date(2026, 1, 15),
     redeefDate: new Date(2025, 9, 1),
   })
 
