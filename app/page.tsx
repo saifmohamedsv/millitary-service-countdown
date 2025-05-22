@@ -64,11 +64,11 @@ export default function Home() {
                 return (
                   <div key={index} className="flex flex-col items-center">
                     <span
-                      className={`text-xl sm:text-3xl md:text-4xl lg:text-6xl font-bold ${colorClass}`}
+                      className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold ${colorClass}`}
                     >
                       {unit}
                     </span>
-                    <span className="text-[8px] sm:text-[10px] md:text-xs text-gray-500 uppercase tracking-wider mt-0.5">
+                    <span className="text-[10px] sm:text-xs md:text-sm text-gray-500 uppercase tracking-wider mt-1">
                       {
                         [
                           'Month',
