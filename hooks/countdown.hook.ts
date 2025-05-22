@@ -15,7 +15,6 @@ export function useCountDown({
       const now = new Date()
 
       const difference = targetDate.getTime() - now.getTime()
-
       const differenceRedeef = redeefDate.getTime() - now.getTime()
 
       if (differenceRedeef <= 0) {
@@ -33,15 +32,18 @@ export function useCountDown({
         const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
         const minutes = Math.floor((difference / (1000 * 60)) % 60)
         const seconds = Math.floor((difference / 1000) % 60)
+        const milliseconds = Math.floor((difference / 10) % 100)
         setTimeLeft(
           `${months.toString().padStart(2, '0')}:${days
             .toString()
             .padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes
             .toString()
-            .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`,
+            .padStart(2, '0')}:${seconds
+            .toString()
+            .padStart(2, '0')}:${milliseconds.toString().padStart(2, '0')}`,
         )
       }
-    }, 1000)
+    }, 10)
 
     return () => clearInterval(interval)
   }, [redeefDate, targetDate])
