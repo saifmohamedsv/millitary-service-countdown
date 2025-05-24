@@ -25,7 +25,7 @@ export function useCountDown({
 
       if (difference <= 0) {
         clearInterval(interval)
-        setTimeLeft('00:00:00:00:00')
+        setTimeLeft('00:00:00:00:00:00')
       } else {
         const months = Math.floor(difference / (1000 * 60 * 60 * 24 * 30))
         const days = Math.floor((difference / (1000 * 60 * 60 * 24)) % 30)
