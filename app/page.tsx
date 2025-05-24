@@ -4,10 +4,9 @@ import { useRef } from 'react'
 
 export default function Home() {
   const inputDate = useRef<HTMLInputElement>(null)
-  const { timeLeft, redeefMessage } = useCountDown({
+  const { timeLeft } = useCountDown({
     targetDate:
       new Date(inputDate.current?.value as string) || new Date(2026, 1, 16),
-    redeefDate: new Date(2025, 9, 1),
   })
 
   return (
@@ -16,7 +15,7 @@ export default function Home() {
         {/* Add a good looking date input */}
         <div className="flex flex-col items-center space-y-2">
           <label htmlFor="date" className="text-sm font-medium text-gray-700">
-            Select Your Service Date
+            Select Your Enlistment Date.
           </label>
           <div className="relative">
             <input
@@ -24,7 +23,10 @@ export default function Home() {
               ref={inputDate}
               type="date"
               id="date"
-              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 hover:border-gray-400 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden [&::-webkit-outer-spin-button]:hidden"
+              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-transparent transition-all duration-200 hover:border-gray-400 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden [&::-webkit-outer-spin-button]:hidden cursor-pointer"
+              onClick={(e) => {
+                e.currentTarget.showPicker()
+              }}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <svg
@@ -119,15 +121,7 @@ export default function Home() {
           </div>
         )}
 
-        {redeefMessage && (
-          <div className="inline-block px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 bg-gradient-to-r from-white to-gray-50 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/20 backdrop-blur-sm">
-            <p className="text-xs sm:text-sm md:text-base text-gray-900 font-semibold">
-              {redeefMessage}
-            </p>
-          </div>
-        )}
-
-        {(!redeefMessage || !timeLeft) && (
+        {!timeLeft && (
           <div className="inline-block px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 bg-gradient-to-r from-white to-gray-50 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/20 backdrop-blur-sm">
             <p className="text-xs sm:text-sm md:text-base text-gray-900 font-semibold">
               Loading...
