@@ -103,16 +103,7 @@ export default function Home() {
                       {unit}
                     </span>
                     <span className="text-[10px] sm:text-xs md:text-sm text-gray-500 uppercase tracking-wider mt-1">
-                      {
-                        [
-                          'Month',
-                          'Day',
-                          'Hour',
-                          'Minute',
-                          'Second',
-                          'Millisecond',
-                        ][index]
-                      }
+                      {['Month', 'Day', 'Hour', 'Minute', 'Second'][index]}
                     </span>
                   </div>
                 )

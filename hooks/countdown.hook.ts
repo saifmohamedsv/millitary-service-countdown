@@ -17,7 +17,7 @@ export function useCountDown({ targetDate }: { targetDate: Date }) {
         const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
         const minutes = Math.floor((difference / (1000 * 60)) % 60)
         const seconds = Math.floor((difference / 1000) % 60)
-        const milliseconds = Math.floor((difference / 10) % 100)
+        // const milliseconds = Math.floor((difference / 10) % 100)
         setTimeLeft(
           `${months.toString().padStart(2, '0')}:${days
             .toString()
@@ -25,7 +25,7 @@ export function useCountDown({ targetDate }: { targetDate: Date }) {
             .toString()
             .padStart(2, '0')}:${seconds
             .toString()
-            .padStart(2, '0')}:${milliseconds.toString().padStart(2, '0')}`,
+            .padStart(2, '0')}`,
         )
       }
     }, 10)
