@@ -41,24 +41,24 @@ export default function Home() {
     <div className="h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden">
       {/* Dialog for first visit */}
       {showDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 p-2 sm:p-0">
           <form
             onSubmit={handleDialogSubmit}
-            className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center space-y-4 min-w-[300px]"
+            className="bg-white rounded-lg shadow-lg p-4 sm:p-6 flex flex-col items-center space-y-4 w-full max-w-xs sm:max-w-md"
           >
-            <h2 className="text-lg font-semibold">
+            <h2 className="text-base sm:text-lg font-semibold text-center">
               Welcome! Choose your enlistment date:
             </h2>
             <input
               ref={inputDate}
               type="date"
               required
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-200"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-200 text-sm sm:text-base"
               defaultValue={new Date(2026, 1, 16).toISOString().split('T')[0]}
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+              className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition text-sm sm:text-base"
             >
               Save
             </button>
@@ -66,12 +66,15 @@ export default function Home() {
         </div>
       )}
 
-      <div className="text-center space-y-4 sm:space-y-6 max-w-screen md:max-w-4xl w-full px-4">
+      <div className="text-center space-y-4 sm:space-y-6 max-w-screen md:max-w-4xl w-full px-2 sm:px-4">
         <div className="flex flex-col items-center space-y-2">
-          <label htmlFor="date" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="date"
+            className="text-xs sm:text-sm font-medium text-gray-700"
+          >
             Select Your Enlistment Date.
           </label>
-          <div className="relative">
+          <div className="relative w-full max-w-xs sm:max-w-md">
             <input
               defaultValue={
                 (targetDate || new Date(2026, 1, 16))
@@ -81,7 +84,7 @@ export default function Home() {
               ref={inputDate}
               type="date"
               id="date"
-              className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-transparent transition-all duration-200 hover:border-gray-400 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden [&::-webkit-outer-spin-button]:hidden cursor-pointer"
+              className="w-full px-3 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-transparent transition-all duration-200 hover:border-gray-400 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden [&::-webkit-outer-spin-button]:hidden cursor-pointer text-sm sm:text-base"
               onClick={(e) => {
                 e.currentTarget.showPicker()
               }}
@@ -106,10 +109,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
+        <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
           Military Service Countdown.
         </h1>
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-2">
+        <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 px-1 sm:px-2">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-500"></div>
             <span className="text-[10px] sm:text-xs text-gray-600">
@@ -138,7 +141,7 @@ export default function Home() {
 
         {timeLeft && (
           <div className="flex flex-col items-center space-y-2">
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 md:gap-4">
               {timeLeft.split(':').map((unit, index) => {
                 const totalMonths = parseInt(timeLeft.split(':')[0])
                 let colorClass = ''
@@ -156,14 +159,14 @@ export default function Home() {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col items-center px-1 sm:px-2"
+                    className="flex flex-col items-center px-0.5 sm:px-2"
                   >
                     <span
-                      className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold ${colorClass}`}
+                      className={`text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold ${colorClass}`}
                     >
                       {unit}
                     </span>
-                    <span className="text-[10px] sm:text-xs md:text-sm text-gray-500 uppercase tracking-wider mt-1">
+                    <span className="text-[9px] sm:text-xs md:text-sm text-gray-500 uppercase tracking-wider mt-1">
                       {['Month', 'Day', 'Hour', 'Minute', 'Second'][index]}
                     </span>
                   </div>
