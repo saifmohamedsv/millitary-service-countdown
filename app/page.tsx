@@ -1,31 +1,92 @@
 'use client'
 import { useCountDown } from '@/hooks/countdown.hook'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Home() {
   const inputDate = useRef<HTMLInputElement>(null)
+  const [showDialog, setShowDialog] = useState(false)
+  const [targetDate, setTargetDate] = useState<Date | null>(null)
+
+  // On mount, check localStorage for target date
+  useEffect(() => {
+    const stored = localStorage.getItem('targetDate')
+    if (stored) {
+      setTargetDate(new Date(stored))
+    } else {
+      setShowDialog(true)
+    }
+  }, [])
+
+  // Save to localStorage when targetDate changes
+  useEffect(() => {
+    if (targetDate) {
+      localStorage.setItem('targetDate', targetDate.toISOString())
+    }
+  }, [targetDate])
+
   const { timeLeft } = useCountDown({
-    targetDate:
-      new Date(inputDate.current?.value as string) || new Date(2026, 1, 16),
+    targetDate: targetDate || new Date(2026, 1, 16),
   })
+
+  // Handler for dialog submit
+  const handleDialogSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (inputDate.current?.value) {
+      setTargetDate(new Date(inputDate.current.value))
+      setShowDialog(false)
+    }
+  }
 
   return (
     <div className="h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden">
+      {/* Dialog for first visit */}
+      {showDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <form
+            onSubmit={handleDialogSubmit}
+            className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center space-y-4 min-w-[300px]"
+          >
+            <h2 className="text-lg font-semibold">
+              Welcome! Choose your enlistment date:
+            </h2>
+            <input
+              ref={inputDate}
+              type="date"
+              required
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-200"
+              defaultValue={new Date(2026, 1, 16).toISOString().split('T')[0]}
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+      )}
+
       <div className="text-center space-y-4 sm:space-y-6 max-w-screen md:max-w-4xl w-full px-4">
-        {/* Add a good looking date input */}
         <div className="flex flex-col items-center space-y-2">
           <label htmlFor="date" className="text-sm font-medium text-gray-700">
             Select Your Enlistment Date.
           </label>
           <div className="relative">
             <input
-              defaultValue={new Date(2026, 1, 16).toISOString().split('T')[0]}
+              defaultValue={
+                (targetDate || new Date(2026, 1, 16))
+                  .toISOString()
+                  .split('T')[0]
+              }
               ref={inputDate}
               type="date"
               id="date"
               className="w-full px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200 focus:border-transparent transition-all duration-200 hover:border-gray-400 [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-clear-button]:hidden [&::-webkit-outer-spin-button]:hidden cursor-pointer"
               onClick={(e) => {
                 e.currentTarget.showPicker()
+              }}
+              onChange={(e) => {
+                setTargetDate(new Date(e.target.value))
               }}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
